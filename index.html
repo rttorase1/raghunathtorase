@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raghunath Torase — 3DEXPERIENCE &amp; GenAI Architect</title>
+<style>
+  :root {
+    --bg:       #E9EAE5;
+    --bg2:      #E1E2DC;
+    --card:     #F3F3EF;
+    --card2:    #EAEAE6;
+    --grn:      #0D3D1E;
+    --grn-lt:   #2A6B3B;
+    --grn-dim:  rgba(13,61,30,0.07);
+    --grn-bdr:  rgba(13,61,30,0.18);
+    --text:     #0A1F10;
+    --muted:    #476050;
+    --subtle:   #789482;
+    --border:   rgba(13,61,30,0.09);
+    --border-hv:rgba(13,61,30,0.22);
+    --mig:      #1A4A3A;
+    --amber:    #7A5A18;
+    --shadow:   0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-hv:0 4px 12px rgba(0,0,0,0.07), 0 16px 40px rgba(0,0,0,0.07);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(233,234,229,0.93);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-name {
+    font-size: 0.9rem; font-weight: 700; color: var(--text);
+    letter-spacing: 0.01em;
+  }
+  .nav-name em { color: var(--grn); font-style: normal; }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+  }
+  .nav-links a {
+    font-size: 0.82rem; color: var(--muted); text-decoration: none;
+    letter-spacing: 0.01em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--grn); text-decoration: none;
+    border: 1px solid var(--grn-bdr);
+    padding: 7px 18px; border-radius: 5px;
+    background: var(--grn-dim);
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { background: var(--grn); color: #fff; }
+
+  /* ── HERO ─────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 24px 80px;
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, #E4E6E1 0%, #E9EAE5 50%, #E0E2DC 100%);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 65% 50% at 50% 38%, rgba(13,61,30,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+
+  .profile-label {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--grn);
+    margin-bottom: 22px;
+    opacity: 0.85;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+  .hero-subtitle {
+    font-size: clamp(0.88rem, 1.5vw, 1rem);
+    color: var(--grn);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin-bottom: 24px;
+    opacity: 0.85;
+  }
+  .hero-desc {
+    font-size: clamp(0.92rem, 1.5vw, 1.02rem);
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 22px;
+    line-height: 1.78;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+
+  .hero-tenure {
+    display: inline-flex; align-items: baseline; gap: 8px;
+    margin-bottom: 40px;
+  }
+  .tenure-num {
+    font-size: 2.5rem; font-weight: 800;
+    color: var(--grn); line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .tenure-label {
+    font-size: 0.76rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.09em;
+  }
+
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    font-size: 0.87rem; font-weight: 600;
+    text-decoration: none;
+    padding: 12px 28px; border-radius: 6px;
+    transition: all 0.22s;
+  }
+  .btn-solid {
+    background: var(--grn); color: #fff;
+    border: 1px solid var(--grn);
+  }
+  .btn-solid:hover { background: var(--grn-lt); border-color: var(--grn-lt); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(13,61,30,0.22); }
+  .btn-ghost {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .btn-ghost:hover { border-color: var(--grn-bdr); color: var(--grn); transform: translateY(-1px); }
+
+  /* ── LAYOUT ───────────────────────────────────────── */
+  section { padding: 96px 24px; }
+  .alt { background: var(--bg2); }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 0.67rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--grn); margin-bottom: 10px; opacity: 0.8;
+  }
+  .sec-title {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.2;
+  }
+  .sec-lead {
+    font-size: 0.94rem; color: var(--muted);
+    max-width: 560px; line-height: 1.78; margin-bottom: 48px;
+  }
+
+  /* ── ABOUT ────────────────────────────────────────── */
+  .about-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start;
+  }
+  .about-copy p {
+    font-size: 0.93rem; color: var(--muted); line-height: 1.8; margin-bottom: 16px;
+  }
+  .about-copy p strong { color: var(--text); font-weight: 600; }
+  .about-copy p:last-child { margin-bottom: 0; }
+
+  .pillars { display: flex; flex-direction: column; gap: 12px; }
+  .pillar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--grn);
+    border-radius: 7px;
+    padding: 17px 20px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pillar:hover { border-left-color: var(--grn-lt); box-shadow: var(--shadow-hv); }
+  .pillar h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .pillar p  { font-size: 0.79rem; color: var(--muted); line-height: 1.65; }
+
+  .industries { margin-top: 30px; }
+  .industries-label {
+    font-size: 0.67rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--subtle); margin-bottom: 11px;
+  }
+  .industry-row { display: flex; flex-wrap: wrap; gap: 7px; }
+  .ind {
+    font-size: 0.77rem; color: var(--muted);
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 4px 13px; border-radius: 100px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+  }
+  .ind:hover { border-color: var(--grn-bdr); color: var(--grn); }
+
+  /* ── SERVICES ─────────────────────────────────────── */
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .svc-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 30px 26px;
+    box-shadow: var(--shadow);
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .svc-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--grn), var(--grn-lt));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .svc-card:hover { border-color: var(--border-hv); transform: translateY(-3px); box-shadow: var(--shadow-hv); }
+  .svc-card:hover::after { opacity: 1; }
+  .svc-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 11px; }
+  .svc-card p  { font-size: 0.82rem; color: var(--muted); line-height: 1.73; margin-bottom: 18px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 0.68rem; font-weight: 600; color: var(--grn);
+    background: var(--grn-dim);
+    border: 1px solid var(--grn-bdr);
+    padding: 3px 9px; border-radius: 4px;
+  }
+
+  /* ── PRODUCTS ─────────────────────────────────────── */
+  .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .prod-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 26px;
+    box-shadow: var(--shadow);
+    transition: all 0.25s;
+  }
+  .prod-card:hover { border-color: var(--border-hv); box-shadow: var(--shadow-hv); }
+
+  .prod-indicator {
+    width: 3px; height: 32px; border-radius: 2px;
+    margin-bottom: 16px;
+  }
+  .ind-blue   { background: var(--grn); }
+  .ind-green  { background: var(--green); }
+  .ind-indigo { background: rgba(13,61,30,0.22); }
+
+  .prod-name { font-size: 0.93rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .prod-sub  { font-size: 0.72rem; font-weight: 600; color: var(--grn); margin-bottom: 13px; opacity: 0.85; }
+  .prod-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.73; margin-bottom: 16px; }
+  .stk-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .stk {
+    font-size: 0.67rem; color: var(--muted);
+    background: var(--card2);
+    border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* ── MCP COVERAGE ─────────────────────────────────── */
+  .mcp-domains { display: grid; grid-template-columns: repeat(4,1fr); gap: 9px; }
+  .dom {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 13px 15px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+  }
+  .dom:hover { border-color: var(--border-hv); background: var(--grn-dim); }
+  .dom-name { font-size: 0.78rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+
+  .mcp-callout {
+    margin-top: 18px;
+    padding: 17px 21px;
+    background: var(--grn-dim);
+    border: 1px solid var(--grn-bdr);
+    border-radius: 8px;
+    font-size: 0.81rem; color: var(--muted); line-height: 1.72;
+  }
+  .mcp-callout strong { color: var(--grn); }
+
+  /* ── SAP ──────────────────────────────────────────── */
+  .sap-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .sap-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .sap-card:hover { border-color: var(--border-hv); box-shadow: var(--shadow-hv); }
+  .sap-badge {
+    display: inline-block;
+    font-size: 0.63rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    padding: 3px 9px; border-radius: 4px; margin-bottom: 11px;
+  }
+  .b-int { background: rgba(13,61,30,0.09);  color: var(--grn);  border: 1px solid rgba(13,61,30,0.18); }
+  .b-mig { background: rgba(26,122,88,0.1);  color: var(--green); border: 1px solid rgba(26,122,88,0.2); }
+  .b-poc { background: rgba(154,108,26,0.1); color: var(--amber); border: 1px solid rgba(154,108,26,0.2); }
+  .sap-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .sap-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 13px; }
+  .pill {
+    font-size: 0.67rem; color: var(--muted);
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* ── TECH STACK ───────────────────────────────────── */
+  .stack-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .stack-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+  }
+  .stack-card h4 {
+    font-size: 0.67rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.11em;
+    color: var(--grn); margin-bottom: 13px; opacity: 0.8;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-size: 0.76rem; font-weight: 500; color: var(--text);
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 5px;
+  }
+
+  /* ── CAREER ───────────────────────────────────────── */
+  .career-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 52px; }
+  .tl { padding-left: 20px; position: relative; }
+  .tl::before {
+    content: '';
+    position: absolute; left: 0; top: 10px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--grn) 0%, transparent 100%);
+  }
+  .tl-item { position: relative; margin-bottom: 28px; }
+  .tl-item::before {
+    content: '';
+    position: absolute; left: -24px; top: 8px;
+    width: 7px; height: 7px;
+    border-radius: 50%; background: var(--grn);
+    border: 2px solid var(--bg2);
+    box-shadow: 0 0 0 3px rgba(13,61,30,0.14);
+  }
+  .tl-item:first-child::before {
+    background: var(--grn-lt);
+    box-shadow: 0 0 0 3px rgba(45,125,210,0.2);
+  }
+  .tl-period {
+    font-size: 0.67rem; font-weight: 700; color: var(--grn);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; opacity: 0.8;
+  }
+  .tl-role  { font-size: 0.88rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .tl-org   { font-size: 0.79rem; color: var(--muted); margin-bottom: 5px; }
+  .tl-desc  { font-size: 0.79rem; color: var(--muted); line-height: 1.65; }
+  .tl-desc strong { color: var(--text); font-weight: 600; }
+
+  /* ── CERTIFICATIONS ───────────────────────────────── */
+  .certs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  .cert {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+  }
+  .cert:hover { border-color: var(--border-hv); box-shadow: var(--shadow-hv); }
+  .cert-name { font-size: 0.8rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+  .cert-by   { font-size: 0.69rem; color: var(--muted); margin-top: 3px; }
+
+  /* ── FOOTER ───────────────────────────────────────── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 72px 24px 52px;
+    text-align: center;
+  }
+  .footer-title {
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  .footer-sub {
+    font-size: 0.88rem; color: var(--muted);
+    margin-bottom: 32px;
+    max-width: 420px; margin-left: auto; margin-right: auto;
+    line-height: 1.7;
+  }
+  .footer-links {
+    display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+    margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--border);
+  }
+  .footer-links a {
+    font-size: 0.79rem; color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--grn); }
+
+  /* ── RESPONSIVE ───────────────────────────────────── */
+  @media (max-width: 960px) {
+    nav { padding: 0 20px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    .about-layout  { grid-template-columns: 1fr; gap: 36px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .mcp-domains   { grid-template-columns: repeat(2,1fr); }
+    .sap-grid      { grid-template-columns: 1fr; }
+    .stack-grid    { grid-template-columns: 1fr 1fr; }
+    .career-grid   { grid-template-columns: 1fr; }
+    .certs-grid    { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 520px) {
+    .stack-grid    { grid-template-columns: 1fr; }
+    .certs-grid    { grid-template-columns: 1fr; }
+    .mcp-domains   { grid-template-columns: 1fr 1fr; }
+    .hero-actions  { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Raghunath <em>Torase</em></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#products">AI Products</a>
+    <a href="#sap">SAP Integration</a>
+    <a href="#career">Career</a>
+    <a href="mailto:rtt7994@gmail.com" class="nav-cta">Get in Touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="profile-label">Profile</div>
+    <h1>Raghunath Torase</h1>
+    <div class="hero-subtitle">
+      ENOVIA / 3DEXPERIENCE Architect &nbsp;&middot;&nbsp; GenAI &amp; MCP &nbsp;&middot;&nbsp; SAP Integration Specialist
+    </div>
+    <p class="hero-desc">
+      <strong>20 years hands-on PLM expertise</strong> — from deep ENOVIA development and architecture
+      to pioneering GenAI adoption for 3DEXPERIENCE. Enabling engineering teams to interact
+      with PLM data through natural language. On-premise. Secure. Production-ready.
+    </p>
+    <div class="hero-tenure">
+      <span class="tenure-num">20</span>
+      <span class="tenure-label">Years PLM Experience</span>
+    </div>
+    <div class="hero-actions">
+      <a href="mailto:rtt7994@gmail.com" class="btn btn-solid">Book a Consultation</a>
+      <a href="https://www.linkedin.com/in/raghunathtorase" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn Profile</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="alt" id="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <div class="about-layout">
+      <div class="about-copy">
+        <div class="sec-title" style="margin-bottom:26px;">Hands-on ENOVIA /<br>3DEXPERIENCE Architect</div>
+        <p>I am a <strong>hands-on ENOVIA/3DEXPERIENCE Architect</strong> with 20 years of PLM experience spanning software development, architecture, and consulting. My core expertise covers 3DEXPERIENCE customization, upgrades, and integrations across the full platform lifecycle.</p>
+        <p>I hold <strong>DS Certified Solution Architect Level II</strong> and <strong>DS Certified Software Architect</strong> credentials from Dassault Systèmes — and bring the same depth to delivery as to design.</p>
+        <p>Most recently, I have been pioneering <strong>GenAI adoption for 3DEXPERIENCE</strong> using Model Context Protocol (MCP), Agentic AI, and RAG — enabling engineers to interact with complex PLM data through natural language, fully on-premise and without compromising IP security.</p>
+        <p>I have delivered across Aerospace, Automotive, Oil &amp; Gas, Defence, Manufacturing, Food, and Hi-Tech — engaging directly with global customers and leading large engineering teams.</p>
+        <div class="industries">
+          <div class="industries-label">Industries</div>
+          <div class="industry-row">
+            <span class="ind">Aerospace</span>
+            <span class="ind">Automotive</span>
+            <span class="ind">Manufacturing</span>
+            <span class="ind">Oil &amp; Gas</span>
+            <span class="ind">Defence &amp; Nuclear</span>
+            <span class="ind">Food</span>
+            <span class="ind">Hi-Tech</span>
+          </div>
+        </div>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <h4>Solution Architecture</h4>
+          <p>3DX consulting, data-model and solution mapping, decision-making on data exchange, events, and schema mappings for migrations and interfaces — aligned to real customer business needs.</p>
+        </div>
+        <div class="pillar">
+          <h4>Software Architecture</h4>
+          <p>Technical decision-making, software design, and rapid prototyping. From selecting the right integration pattern to designing scalable, maintainable PLM systems that endure.</p>
+        </div>
+        <div class="pillar">
+          <h4>Software Development</h4>
+          <p>3DX customization, Widget development, REST/SOAP web services, JPO, TCL, MQL, UI3, Vue.js, Java, TypeScript, Python. Hands-on delivery at every level of the stack.</p>
+        </div>
+        <div class="pillar" style="border-left-color: var(--grn-lt);">
+          <h4>GenAI Adoption for PLM</h4>
+          <p>MCP servers, Agentic AI with OpenAI Agents SDK and Google ADK, RAG with on-premise open-source LLMs — purpose-built for 3DEXPERIENCE environments with enterprise-grade data security.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow">Services</div>
+    <div class="sec-title">Three Ways I Can Help</div>
+    <p class="sec-lead">Specialized consulting, architecture, and hands-on delivery — across the full 3DEXPERIENCE ecosystem.</p>
+    <div class="services-grid">
+
+      <div class="svc-card">
+        <h3>GenAI Adoption for 3DEXPERIENCE</h3>
+        <p>Design and build AI assistants that let engineers query BOM structures, manage Change Actions, navigate requirements, and search documents — through natural language, not clicks. Multi-LLM, vendor-agnostic, and fully deployable on-premise for complete IP protection.</p>
+        <div class="tag-row">
+          <span class="tag">MCP Protocol</span>
+          <span class="tag">Agentic AI</span>
+          <span class="tag">RAG</span>
+          <span class="tag">OpenAI Agents SDK</span>
+          <span class="tag">Google ADK</span>
+          <span class="tag">Ollama &middot; Llama &middot; Mistral</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">n8n</span>
+          <span class="tag">On-Premise</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <h3>3DX&ndash;SAP Integration &amp; Migration</h3>
+        <p>End-to-end integration and data migration between 3DEXPERIENCE and SAP — across S/4HANA, SAP ECC, and SAP BTP. Proven experience with event-driven architectures, custom web services, direct connector implementations, and cloud iPaaS platforms.</p>
+        <div class="tag-row">
+          <span class="tag">PFI &middot; Event Publishing</span>
+          <span class="tag">SAP BTP + CPI</span>
+          <span class="tag">T Systems Connector</span>
+          <span class="tag">SAPJCo &middot; BAPI</span>
+          <span class="tag">XPDMXML</span>
+          <span class="tag">Kafka &middot; ActiveMQ</span>
+          <span class="tag">SAP Event Mesh</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <h3>3DX Architecture &amp; Implementation</h3>
+        <p>Full-lifecycle 3DEXPERIENCE consulting — from solution architecture and data-model design to hands-on customization, platform upgrades, and delivery. Deep expertise across BOM, Change, P&amp;O, Requirements, Documents, Libraries, Configuration Management, and MBSE.</p>
+        <div class="tag-row">
+          <span class="tag">ENOVIA APIs</span>
+          <span class="tag">JPO &middot; TCL &middot; MQL &middot; EKL</span>
+          <span class="tag">BOM Management</span>
+          <span class="tag">Change Management</span>
+          <span class="tag">MBSE</span>
+          <span class="tag">Document Mgmt</span>
+          <span class="tag">Upgrades</span>
+          <span class="tag">Widget Development</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AI PRODUCTS -->
+<section class="alt" id="products">
+  <div class="wrap">
+    <div class="eyebrow">AI Products Built</div>
+    <div class="sec-title">Production-Ready GenAI for PLM</div>
+    <p class="sec-lead">Three purpose-built AI products for 3DEXPERIENCE environments — on-premise first, full data sovereignty, zero cloud dependency option.</p>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-indicator ind-blue"></div>
+        <div class="prod-name">3DEXPERIENCE Assistant</div>
+        <div class="prod-sub">MCP + n8n + Agentic AI</div>
+        <p class="prod-desc">An intelligent assistant enabling natural language interaction with 3DEXPERIENCE across every business domain — Engineering Items, BOM structures, Change Actions, Requirements, Programs, Documents, and more. n8n orchestrates workflows across JIRA, Kafka, and external systems. Fully vendor-agnostic: Claude, OpenAI, Gemini, or self-hosted Ollama.</p>
+        <div class="stk-row">
+          <span class="stk">TypeScript</span><span class="stk">Node.js</span><span class="stk">MCP SDK</span><span class="stk">FAISS</span><span class="stk">DocLing</span><span class="stk">LLaVA</span><span class="stk">Vue.js</span><span class="stk">n8n</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-indicator ind-green"></div>
+        <div class="prod-name">3DX Knowledge Assistant</div>
+        <div class="prod-sub">Enterprise RAG &middot; On-Premise</div>
+        <p class="prod-desc">Transforms enterprise documentation — specifications, policies, drawings, and knowledge bases — into a conversational interface. Multimodal intelligence processes text, technical diagrams, and images. Deployed entirely on-premise with no external API calls, ensuring complete data sovereignty and compliance with GDPR, HIPAA, and ITAR by design.</p>
+        <div class="stk-row">
+          <span class="stk">Ollama</span><span class="stk">Llama 3.2</span><span class="stk">MiniLM</span><span class="stk">ChromaDB</span><span class="stk">Hybrid RAG</span><span class="stk">FastAPI</span><span class="stk">Vue.js</span><span class="stk">Docker</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-indicator ind-indigo"></div>
+        <div class="prod-name">3DX Support Assistant</div>
+        <div class="prod-sub">AI Incident Resolution &middot; JIRA Integration</div>
+        <p class="prod-desc">Captures application errors with full context — screenshots, page metadata, and widget details — and surfaces resolution suggestions through RAG-powered search over historical incidents and the enterprise knowledge base. One-click JIRA ticket creation with structured, rich-format descriptions. Enables engineers to resolve issues independently through intelligent self-service.</p>
+        <div class="stk-row">
+          <span class="stk">FastAPI</span><span class="stk">ChromaDB</span><span class="stk">LangChain</span><span class="stk">Claude API</span><span class="stk">JIRA REST API v3</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MCP COVERAGE -->
+<section id="mcp">
+  <div class="wrap">
+    <div class="eyebrow">MCP Tool Coverage</div>
+    <div class="sec-title">Comprehensive 3DEXPERIENCE Coverage<br>Across Every Domain</div>
+    <p class="sec-lead">The MCP server exposes tools across all major 3DEXPERIENCE business domains — enabling any MCP-compatible AI model to interact with live PLM data through natural language.</p>
+    <div class="mcp-domains">
+      <div class="dom"><div class="dom-name">Auth &amp; Configuration</div></div>
+      <div class="dom"><div class="dom-name">Engineering Items</div></div>
+      <div class="dom"><div class="dom-name">Manufacturing Items</div></div>
+      <div class="dom"><div class="dom-name">Requirements &amp; Chapters</div></div>
+      <div class="dom"><div class="dom-name">Change Actions &amp; Impact</div></div>
+      <div class="dom"><div class="dom-name">PLM Parameters</div></div>
+      <div class="dom"><div class="dom-name">Bookmarks</div></div>
+      <div class="dom"><div class="dom-name">Issues</div></div>
+      <div class="dom"><div class="dom-name">Programs &amp; Projects</div></div>
+      <div class="dom"><div class="dom-name">People &amp; Organizations</div></div>
+      <div class="dom"><div class="dom-name">Collaboration Spaces</div></div>
+      <div class="dom"><div class="dom-name">Models &amp; Configurations</div></div>
+      <div class="dom"><div class="dom-name">Classes &amp; Libraries</div></div>
+      <div class="dom"><div class="dom-name">Versioning &amp; Ownership</div></div>
+      <div class="dom"><div class="dom-name">Documents</div></div>
+      <div class="dom"><div class="dom-name">3DSwym Community</div></div>
+    </div>
+    <div class="mcp-callout">
+      An engineer can ask about parts, BOM structures, change actions, requirements, programs, or documents — and receive structured answers from live 3DEXPERIENCE data without navigating the UI. <strong>Works with Claude, OpenAI, Gemini, or fully on-premise with Ollama.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- SAP INTEGRATION -->
+<section class="alt" id="sap">
+  <div class="wrap">
+    <div class="eyebrow">3DX&ndash;SAP Integration &amp; Migration</div>
+    <div class="sec-title">Four Proven Integration Patterns</div>
+    <p class="sec-lead">Real project experience across all major SAP integration approaches — both on-premise and cloud, integration and data migration.</p>
+    <div class="sap-grid">
+
+      <div class="sap-card">
+        <span class="sap-badge b-int">Integration</span>
+        <h4>3DX &rarr; SAP S/4HANA via PFI &amp; Event Publishing</h4>
+        <p>Event-driven EBOM, Change Action, MFI, and Manufacturer data exchange triggered on 3DX Change Action completion. Custom web services on both sides with acknowledgement loop, middleware for payload transformation and routing.</p>
+        <div class="pill-row">
+          <span class="pill">PFI</span><span class="pill">REST API</span><span class="pill">Custom Web Services</span><span class="pill">Kafka</span><span class="pill">ActiveMQ</span>
+        </div>
+      </div>
+
+      <div class="sap-card">
+        <span class="sap-badge b-int">Integration</span>
+        <h4>3DX &rarr; SAP ECC via T Systems Connector</h4>
+        <p>Classic ENOVIA&ndash;SAP integration using T Systems connector via RFC/BAPI. Covers EC Parts, ENOVIA EBOM and MBOM data exchange on Change Action completion. Connector customized to suit client-specific business cases and data models.</p>
+        <div class="pill-row">
+          <span class="pill">T Systems Connector</span><span class="pill">RFC / BAPI</span><span class="pill">EBOM / MBOM</span><span class="pill">EC Part</span>
+        </div>
+      </div>
+
+      <div class="sap-card">
+        <span class="sap-badge b-mig">Migration</span>
+        <h4>SAP PM (ECC) &rarr; 3DEXPERIENCE via SAPJCo</h4>
+        <p>Data migration from SAP Plant Maintenance into 3DEXPERIENCE. SAP Java Connector used to authenticate and call SAP PM BAPIs for equipment data extraction, converted to XPDMXML format and imported into 3DX.</p>
+        <div class="pill-row">
+          <span class="pill">SAPJCo</span><span class="pill">SAP PM BAPIs</span><span class="pill">XPDMXML</span><span class="pill">Java</span>
+        </div>
+      </div>
+
+      <div class="sap-card">
+        <span class="sap-badge b-poc">PoC</span>
+        <h4>3DX &rarr; SAP BTP via PFI + SAP Event Mesh + CPI</h4>
+        <p>Cloud-native integration proof-of-concept connecting 3DX on-premise to SAP BTP. PFI publishes events into SAP Event Mesh, with SAP CPI acting as iPaaS middleware to orchestrate BOM data synchronisation into S/4HANA Public Cloud.</p>
+        <div class="pill-row">
+          <span class="pill">SAP BTP</span><span class="pill">SAP Event Mesh</span><span class="pill">SAP CPI / iPaaS</span><span class="pill">PFI</span><span class="pill">S/4HANA Cloud</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="wrap">
+    <div class="eyebrow">Tech Stack</div>
+    <div class="sec-title">Full-Stack PLM &amp; AI Expertise</div>
+    <p class="sec-lead">Two decades of technology depth — from legacy ENOVIA MQL and TCL to production GenAI systems.</p>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h4>AI &amp; LLM</h4>
+        <div class="chips">
+          <span class="chip">Claude API</span><span class="chip">OpenAI</span><span class="chip">Ollama</span><span class="chip">Llama 3.2</span><span class="chip">LLaVA</span><span class="chip">Mistral</span><span class="chip">MiniLM</span><span class="chip">LangChain</span><span class="chip">DocLing</span><span class="chip">FAISS</span><span class="chip">ChromaDB</span><span class="chip">n8n</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>Backend &amp; Frontend</h4>
+        <div class="chips">
+          <span class="chip">Node.js</span><span class="chip">TypeScript</span><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Java</span><span class="chip">Spring Boot</span><span class="chip">Vue.js 3</span><span class="chip">REST / SOAP</span><span class="chip">MCP SDK</span><span class="chip">Express</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>3DX / ENOVIA</h4>
+        <div class="chips">
+          <span class="chip">JPO</span><span class="chip">TCL</span><span class="chip">MQL</span><span class="chip">EKL</span><span class="chip">UI3</span><span class="chip">OSLC</span><span class="chip">XPDMXML</span><span class="chip">Widget Dev</span><span class="chip">SaaS / Open Services</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>SAP &amp; Integration</h4>
+        <div class="chips">
+          <span class="chip">SAPJCo</span><span class="chip">SAP CPI</span><span class="chip">SAP Event Mesh</span><span class="chip">SAP BTP</span><span class="chip">ABAP</span><span class="chip">RFC / BAPI</span><span class="chip">T Systems</span><span class="chip">PFI</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>Middleware &amp; Cloud</h4>
+        <div class="chips">
+          <span class="chip">Kafka</span><span class="chip">ActiveMQ</span><span class="chip">GCP Pub/Sub</span><span class="chip">Google Cloud</span><span class="chip">AWS</span><span class="chip">Docker</span><span class="chip">Celery</span>
+        </div>
+      </div>
+      <div class="stack-card">
+        <h4>Databases</h4>
+        <div class="chips">
+          <span class="chip">Oracle</span><span class="chip">MS SQL</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">ChromaDB</span><span class="chip">Elasticsearch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section class="alt" id="career">
+  <div class="wrap">
+    <div class="eyebrow">Career</div>
+    <div class="sec-title">20 Years of PLM Delivery</div>
+    <p class="sec-lead" style="margin-bottom:40px;">A continuous progression from ENOVIA engineer to GenAI pioneer — depth at every stage.</p>
+    <div class="career-grid">
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-period">2025 &ndash; Present</div>
+          <div class="tl-role">GenAI Architect &mdash; Independent</div>
+          <div class="tl-org">Personal Projects &middot; Remote</div>
+          <div class="tl-desc">Designing and building production-grade AI assistants for 3DEXPERIENCE &mdash; MCP server, Enterprise RAG Knowledge Assistant, and Support Assistant with JIRA integration. <strong>Pioneering the intersection of PLM and GenAI.</strong></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">Mar &ndash; Jun 2025</div>
+          <div class="tl-role">3DEXPERIENCE Architect</div>
+          <div class="tl-org">Self-employed &middot; Remote</div>
+          <div class="tl-desc">3DX&ndash;SAP integration, XPDM event orchestration, custom RESTful services, SaaS and Open Services implementations for enterprise clients.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2022 &ndash; 2025</div>
+          <div class="tl-role">Technical Architect</div>
+          <div class="tl-org">Accenture &middot; Pune</div>
+          <div class="tl-desc"><strong>Led a 30-engineer team</strong> on a large-scale aerospace project. Designed 3DX&ndash;SAP ECC/BTP integration architecture. Kafka, GCP Pub/Sub, and SAP Event Mesh implementations.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2016 &ndash; 2022</div>
+          <div class="tl-role">Solutions &amp; Software Architect</div>
+          <div class="tl-org">Dassault Syst&egrave;mes &middot; Pune</div>
+          <div class="tl-desc">Solution architecture for Document Management (XDO, CATIA Report Generator, Composer), 3DX platform upgrades, SAPJCo implementations. <strong>Defining best practices from within DS.</strong></div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-period">2015 &ndash; 2016</div>
+          <div class="tl-role">Senior Consultant</div>
+          <div class="tl-org">Capgemini &middot; Pune</div>
+          <div class="tl-desc">MBOM management, ENOVIA&ndash;SAP integration via T Systems connector. Client-facing PLM delivery across manufacturing accounts.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2010 &ndash; 2015</div>
+          <div class="tl-role">Technical Lead</div>
+          <div class="tl-org">3DPLM Software Solutions &middot; Pune</div>
+          <div class="tl-desc">ENOVIA customization for multiple clients. Legacy system integrations via SOAP services. Team management, customer interaction, and Agile delivery.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2006 &ndash; 2010</div>
+          <div class="tl-role">Senior Software Engineer</div>
+          <div class="tl-org">Geometric Ltd &middot; Pune</div>
+          <div class="tl-desc">Full-lifecycle PLM implementations including the Site Query module for Oil &amp; Gas. Requirement analysis, development, QA, and UAT delivery.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">2003 &ndash; 2005</div>
+          <div class="tl-role">M.E. Mechanical Engineering</div>
+          <div class="tl-org">Walchand College of Engineering, Sangli</div>
+          <div class="tl-desc">Engineering foundation that informs deep understanding of PLM domain, customer engineering workflows, and product data management needs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="wrap">
+    <div class="eyebrow">Credentials</div>
+    <div class="sec-title">Certified. Across PLM &amp; Cloud.</div>
+    <p class="sec-lead" style="margin-bottom:28px;">Industry-recognised certifications from Dassault Syst&egrave;mes, Google, AWS, and global professional bodies.</p>
+    <div class="certs-grid">
+      <div class="cert">
+        <div class="cert-name">DS Certified Solution Architect Level II</div>
+        <div class="cert-by">Dassault Syst&egrave;mes</div>
+      </div>
+      <div class="cert">
+        <div class="cert-name">DS Certified Software Architect</div>
+        <div class="cert-by">Dassault Syst&egrave;mes</div>
+      </div>
+      <div class="cert">
+        <div class="cert-name">Associate Cloud Engineer</div>
+        <div class="cert-by">Google Cloud</div>
+      </div>
+      <div class="cert">
+        <div class="cert-name">AWS Cloud Practitioner</div>
+        <div class="cert-by">Amazon Web Services</div>
+      </div>
+      <div class="cert">
+        <div class="cert-name">Certificate in Business Analysis &mdash; CCBA&reg;</div>
+        <div class="cert-by">IIBA</div>
+      </div>
+      <div class="cert">
+        <div class="cert-name">Sun Certified Java Programmer &mdash; SCJP 5.0</div>
+        <div class="cert-by">Sun Microsystems</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">Ready to bring AI to your 3DEXPERIENCE environment?</div>
+  <p class="footer-sub">Let&rsquo;s discuss what&rsquo;s possible &mdash; on-premise, secure, and built for your engineering teams.</p>
+  <div class="hero-actions">
+    <a href="mailto:rtt7994@gmail.com" class="btn btn-solid">Book a Consultation</a>
+    <a href="https://www.linkedin.com/in/raghunathtorase" target="_blank" rel="noopener" class="btn btn-ghost">Connect on LinkedIn</a>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:rtt7994@gmail.com">rtt7994@gmail.com</a>
+    <a href="https://www.linkedin.com/in/raghunathtorase" target="_blank" rel="noopener">linkedin.com/in/raghunathtorase</a>
+  </div>
+</footer>
+
+</body>
+</html>
